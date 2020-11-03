@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, RefreshControl, Linking } from 'react-native';
-// import { getRacersDataThunk, loadMoreRacersDataThunk } from '../redux/reducers/racersReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { LoadingIndicator } from '../ui/LoadingIndicator';
 import { ResponseError } from '../ui/ResponseError';
