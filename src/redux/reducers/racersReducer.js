@@ -1,9 +1,6 @@
-import { Alert } from "react-native";
-import { racersAPI } from "../../api/ajax";
-
-const GET_RACERS_DATA = 'ErgastApp/racingsReducer/GET-RACERS-DATA';
-const LOADING_RACERS = 'ErgastApp/racingsReducer/LOADING-RACERS';
-const LOAD_MORE_RACERS_DATA = 'ErgastApp/racingsReducer/LOAD-MORE-RACERS-DATA';
+export const GET_RACERS_DATA = 'ErgastApp/racingsReducer/GET-RACERS-DATA';
+export const LOADING_RACERS = 'ErgastApp/racingsReducer/LOADING-RACERS';
+export const LOAD_MORE_RACERS_DATA = 'ErgastApp/racingsReducer/LOAD-MORE-RACERS-DATA';
 
 const initialState = {
     racers: null,
@@ -35,32 +32,5 @@ export const racersReducer = (state = initialState, action) => {
         };
         default:
             return state;
-    }
-}
-
-const setLoadingRacersCreator = loadingRacers => ({
-    type: LOADING_RACERS,
-    loadingRacers
-});
-
-export const getRacersDataThunk = (hideLoader) => async dispatch => {
-    try {
-        !hideLoader && dispatch(setLoadingRacersCreator(true));
-        const response = await racersAPI.getRacers();
-        dispatch({ type: GET_RACERS_DATA, racers: response.data });
-        !hideLoader && dispatch(setLoadingRacersCreator(false));
-    } catch (e) {
-        Alert.alert('Response Error');
-    } finally {
-        !hideLoader && dispatch(setLoadingRacersCreator(false));
-    }
-}
-
-export const loadMoreRacersDataThunk = page => async dispatch => {
-    try {
-        const response = await racersAPI.getRacers(page);
-        dispatch({ type: LOAD_MORE_RACERS_DATA, racers: response.data });
-    } catch (e) {
-        Alert.alert('Response Error');
     }
 }

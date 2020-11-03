@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, RefreshControl, Linking } from 'react-native';
-import { getRacersDataThunk, loadMoreRacersDataThunk } from '../redux/reducers/racersReducer';
+// import { getRacersDataThunk, loadMoreRacersDataThunk } from '../redux/reducers/racersReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { LoadingIndicator } from '../ui/LoadingIndicator';
+import { ResponseError } from '../ui/ResponseError';
 import { getRacerRacesThunk } from '../redux/reducers/racesReducer';
 import { Table } from '../ui/Table';
+import { getRacersDataThunk, loadMoreRacersDataThunk } from '../redux/actions/racersReducerActions';
 
 export const Racers = ({ navigation }) => {
     const dispatch = useDispatch();
 
     const racers = useSelector(state => state.racersAPI.racers);
     const loadingRacers = useSelector(state => state.racersAPI.loadingRacers);
+    const responseError = useSelector(state => state.racesAPI.responseError);
 
     const [refreshing, setRefreshing] = useState(false);
     
@@ -20,6 +23,10 @@ export const Racers = ({ navigation }) => {
 
     if (loadingRacers) {
         return <LoadingIndicator />
+    }
+
+    if (responseError) {
+        return <ResponseError error={responseError} onPress={() => dispatch(getRacersDataThunk())} />
     }
 
     const onRefresh = async () => {

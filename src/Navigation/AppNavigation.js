@@ -4,8 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Platform } from 'react-native';
-import { Racers } from '../components/Racers';
-import { Races } from '../components/Races';
+import { Racers } from '../screens/Racers';
+import { Races } from '../screens/Races';
 
 const defaultOptions = {
     headerStyle: {

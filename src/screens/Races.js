@@ -1,18 +1,22 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View, Linking } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { LoadingIndicator } from '../ui/LoadingIndicator';
+import { ResponseError } from '../ui/ResponseError';
 import { Table } from '../ui/Table';
 
 export const Races = ({ navigation, route }) => {
-    const dispatch = useDispatch();
-
     const racerRaces = useSelector(state => state.racesAPI.racerRaces);
     const loadingRacerRaces = useSelector(state => state.racesAPI.loadingRacerRaces);
+    const responseError = useSelector(state => state.racesAPI.responseError);
 
     if (loadingRacerRaces) {
         return <LoadingIndicator />
+    }
+
+    if (responseError) {
+        return <ResponseError error={responseError} />
     }
 
     if (!racerRaces?.MRData?.RaceTable?.Races.length) {
